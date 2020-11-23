@@ -9,7 +9,7 @@ import {
 import Image from "./Image";
 
 @Entity("adverts")
-export default class Orphanage {
+export default class Advert {
   @PrimaryGeneratedColumn("increment")
   id: number;
 
