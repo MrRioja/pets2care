@@ -32,7 +32,7 @@ export default class Advert {
   user_id: number;
 
   @Column()
-  created_at: string;
+  created_at: number;
 
   @OneToMany(() => Image, (image) => image.advert, {
     cascade: ["insert", "update"],
