@@ -58,7 +58,7 @@ export default {
       species: Yup.string().required().max(300),
       description: Yup.string().required(),
       user_id: Yup.number().required(),
-      created_at: Yup.string().required(),
+      created_at: Yup.number().required(),
       images: Yup.array(
         Yup.object().shape({
           path: Yup.string().required(),
