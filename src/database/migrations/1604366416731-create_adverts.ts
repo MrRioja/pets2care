@@ -15,7 +15,7 @@ export class createAdverts1604366416731 implements MigrationInterface {
             generationStrategy: "increment",
           },
           {
-            name: "pet_name",
+            name: "name",
             type: "varchar",
           },
           {
@@ -24,11 +24,11 @@ export class createAdverts1604366416731 implements MigrationInterface {
             length: "3",
           },
           {
-            name: "city",
+            name: "place",
             type: "varchar",
           },
           {
-            name: "species",
+            name: "type",
             type: "varchar",
           },
           {
@@ -36,11 +36,15 @@ export class createAdverts1604366416731 implements MigrationInterface {
             type: "text",
           },
           {
-            name: "user_id",
+            name: "userId",
             type: "integer",
           },
           {
-            name: "created_at",
+            name: "userName",
+            type: "string",
+          },
+          {
+            name: "createdAt",
             type: "timestamp",
             default: "now()",
           },
