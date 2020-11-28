@@ -5,14 +5,15 @@ export default {
   render(advert: Advert) {
     return {
       id: advert.id,
-      name: advert.pet_name,
+      userId: advert.userId,
+      userName: advert.userName,
+      createdAt: advert.createdAt,
+      name: advert.name,
+      place: advert.place,
+      images: imagesView.renderMany(advert.images),      
       age: advert.age,
-      city: advert.city,
-      species: advert.species,
+      type: advert.type,
       description: advert.description,
-      user_id: advert.user_id,
-      created_at: advert.created_at,
-      images: imagesView.renderMany(advert.images),
     };
   },
 

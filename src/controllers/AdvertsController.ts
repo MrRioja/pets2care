@@ -28,9 +28,9 @@ export default {
   },
 
   async create(req: Request, res: Response) {
-    const created_at = Date.now();
+    const createdAt = Date.now();
 
-    const { pet_name, age, city, species, description, user_id } = req.body;
+    const { name, age, place, type, description, userId, userName } = req.body;
 
     const advertsRepository = getRepository(Advert);
 
@@ -41,24 +41,26 @@ export default {
     });
 
     const data = {
-      pet_name,
+      name,
       age,
-      city,
-      species,
+      place,
+      type,
       description,
-      user_id,
-      created_at,
+      userId,
+      userName,
+      createdAt,
       images,
     };
 
     const schema = Yup.object().shape({
-      pet_name: Yup.string().required(),
+      name: Yup.string().required(),
       age: Yup.number().required(),
-      city: Yup.string().required(),
-      species: Yup.string().required().max(300),
+      place: Yup.string().required(),
+      type: Yup.string().required().max(300),
       description: Yup.string().required(),
-      user_id: Yup.number().required(),
-      created_at: Yup.number().required(),
+      userId: Yup.number().required(),
+      userName: Yup.string().required(),
+      createdAt: Yup.number().required(),
       images: Yup.array(
         Yup.object().shape({
           path: Yup.string().required(),

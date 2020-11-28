@@ -14,25 +14,28 @@ export default class Advert {
   id: number;
 
   @Column()
-  pet_name: string;
+  name: string;
 
   @Column()
   age: number;
 
   @Column()
-  city: string;
+  place: string;
 
   @Column()
-  species: string;
+  type: string;
 
   @Column()
   description: string;
 
   @Column()
-  user_id: number;
+  userId: number;
 
   @Column()
-  created_at: number;
+  userName: string;
+
+  @Column()
+  createdAt: number;
 
   @OneToMany(() => Image, (image) => image.advert, {
     cascade: ["insert", "update"],
