@@ -80,14 +80,23 @@ export default {
   },
 
   async update(req: Request, res: Response) {
+    let { name, place, age, type, description } = req.body;
     const { id } = req.params;
-    const body = req.body;
+
     const advertsRepository = getRepository(Advert);
-    console.log(req);
 
-    // const advert = await advertsRepository.update(id, advertUpdated);
+    const advert = await advertsRepository.findOneOrFail(id);
 
-    return res.json({ message: "Alterado com sucesso!" });
+    advert.name = name === undefined ? advert.name : name;
+    advert.age = age === undefined ? advert.age : age;
+    advert.place = place === undefined ? advert.place : place;
+    advert.type = type === undefined ? advert.type : type;
+    advert.description =
+      description === undefined ? advert.description : description;
+
+    await advertsRepository.update(id, req.body);
+
+    return res.json(advert);
   },
 
   async delete(req: Request, res: Response) {
