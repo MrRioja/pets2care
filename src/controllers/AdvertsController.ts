@@ -29,13 +29,9 @@ export default {
 
   async create(req: Request, res: Response) {
     const createdAt = Date.now();
-
     const { name, age, place, type, description, userId, userName } = req.body;
-
     const advertsRepository = getRepository(Advert);
-
-    const requestImages = req.files as Express.Multer.File[];
-
+    const requestImages = req.files as Express.Multer.File[];    
     const images = requestImages.map((image) => {
       return { path: image.filename };
     });
@@ -79,6 +75,7 @@ export default {
     return res.status(201).json(advert);
   },
 
+  //TODO: tem que ser igualzinho ao create, inclusive recebendo as images
   async update(req: Request, res: Response) {
     const { id } = req.params;
     const body = req.body;
@@ -90,6 +87,7 @@ export default {
     return res.json({ message: "Alterado com sucesso!" });
   },
 
+  //TODO: quando dá o delete tem que apagar as images associadas do banco
   async delete(req: Request, res: Response) {
     const { id } = req.params;
     const advertsRepository = getRepository(Advert);
@@ -99,10 +97,10 @@ export default {
   },
 
   async deleteAll(req: Request, res: Response) {
-    const { userId } = req.params;
+    const { id } = req.params;
     const advertsRepository = getRepository(Advert);
 
-    const advert = await advertsRepository.delete({ userId: parseInt(userId) });
+    const advert = await advertsRepository.delete({ userId: parseInt(id) });
     console.log(advert);
 
     return res.json({ message: "Deletados com sucesso!" });

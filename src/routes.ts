@@ -10,9 +10,9 @@ const upload = multer(uploadConfig);
 
 routes.get("/adverts", AdvertsController.index);
 routes.get("/adverts/:id", AdvertsController.show);
-routes.put("/adverts/:id", AdvertsController.update);
+routes.put("/adverts/:id", upload.array("images"), AdvertsController.update);
 routes.post("/adverts", upload.array("images"), AdvertsController.create);
 routes.delete("/adverts/:id", AdvertsController.delete);
-routes.delete("/adverts/:userId", AdvertsController.deleteAll);
+//routes.delete("/adverts/user/:id", AdvertsController.deleteAll);
 
 export default routes;
