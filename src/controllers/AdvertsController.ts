@@ -95,7 +95,6 @@ export default {
     const advertsRepository = getRepository(Advert);
 
     const advert = await advertsRepository.delete(id);
-
     return res.json({ message: "Deletado com sucesso!" });
   },
 
