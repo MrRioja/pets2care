@@ -78,4 +78,34 @@ export default {
 
     return res.status(201).json(advert);
   },
+
+  async update(req: Request, res: Response) {
+    const { id } = req.params;
+    const body = req.body;
+    const advertsRepository = getRepository(Advert);
+    console.log(req);
+
+    // const advert = await advertsRepository.update(id, advertUpdated);
+
+    return res.json({ message: "Alterado com sucesso!" });
+  },
+
+  async delete(req: Request, res: Response) {
+    const { id } = req.params;
+    const advertsRepository = getRepository(Advert);
+
+    const advert = await advertsRepository.delete(id);
+
+    return res.json({ message: "Deletado com sucesso!" });
+  },
+
+  async deleteAll(req: Request, res: Response) {
+    const { userId } = req.params;
+    const advertsRepository = getRepository(Advert);
+
+    const advert = await advertsRepository.delete({ userId: parseInt(userId) });
+    console.log(advert);
+
+    return res.json({ message: "Deletados com sucesso!" });
+  },
 };
