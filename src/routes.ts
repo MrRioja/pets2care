@@ -8,11 +8,11 @@ import AdvertsController from "./controllers/AdvertsController";
 const routes = Router();
 const upload = multer(uploadConfig);
 
-routes.get("/adverts", AdvertsController.index);
-routes.get("/adverts/:id", AdvertsController.show);
-routes.put("/advert/:id", AdvertsController.update);
-routes.post("/adverts", upload.array("images"), AdvertsController.create);
-routes.delete("/advert/:id", AdvertsController.delete);
-routes.delete("/adverts/:userId", AdvertsController.deleteAll);
+routes.get("/pets", AdvertsController.index);
+routes.get("/pets/:id", AdvertsController.show);
+routes.put("/pet/:id", AdvertsController.update);
+routes.post("/pets", upload.array("images"), AdvertsController.create);
+routes.delete("/pet/:id", AdvertsController.delete);
+routes.delete("/pets/:userId", AdvertsController.deleteAll);
 
 export default routes;
