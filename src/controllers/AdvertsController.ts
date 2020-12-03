@@ -31,7 +31,7 @@ export default {
     const createdAt = Date.now();
     const { name, age, place, type, description, userId, userName } = req.body;
     const advertsRepository = getRepository(Advert);
-    const requestImages = req.files as Express.Multer.File[];    
+    const requestImages = req.files as Express.Multer.File[];
     const images = requestImages.map((image) => {
       return { path: image.filename };
     });
@@ -106,11 +106,11 @@ export default {
   },
 
   async deleteAll(req: Request, res: Response) {
-    const { id } = req.params;
+    const { userId } = req.params;
+
     const advertsRepository = getRepository(Advert);
 
-    const advert = await advertsRepository.delete({ userId: parseInt(id) });
-    console.log(advert);
+    const advert = await advertsRepository.delete({ userId: parseInt(userId) });
 
     return res.json({ message: "Deletados com sucesso!" });
   },
