@@ -5,7 +5,7 @@ export default {
     return {
       id: image.id,
       //url: `http://localhost:3333/uploads/${image.path}`,
-      url: `${process.env.IP}:${process.env.PORT}/uploads/${image.path}`,
+      url: `${process.env.IP}/uploads/${image.path}`,
     };
   },
 
