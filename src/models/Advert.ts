@@ -38,7 +38,7 @@ export default class Advert {
   createdAt: number;
 
   @OneToMany(() => Image, (image) => image.advert, {
-    cascade: ["insert", "update"],
+    cascade: ["insert", "update", "remove"],
   })
   @JoinColumn({ name: "advert_id" })
   images: Image[];

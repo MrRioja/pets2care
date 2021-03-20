@@ -77,13 +77,14 @@ export default {
 
   //TODO: tem que ser igualzinho ao create, inclusive recebendo as images
   async update(req: Request, res: Response) {
-    let { name, place, age, type, description } = req.body;
+    let { userName, name, place, age, type, description } = req.body;
     const { id } = req.params;
 
     const advertsRepository = getRepository(Advert);
 
     const advert = await advertsRepository.findOneOrFail(id);
 
+    advert.userName = userName === undefined ? advert.userName : userName;
     advert.name = name === undefined ? advert.name : name;
     advert.age = age === undefined ? advert.age : age;
     advert.place = place === undefined ? advert.place : place;
