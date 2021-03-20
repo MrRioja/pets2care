@@ -1,9 +1,12 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
+import { resolve } from "path";
+import fs from "fs";
 import * as Yup from "yup";
 
 import advertView from "../views/adverts_view";
 import Advert from "../models/Advert";
+import Image from "../models/Image";
 
 export default {
   async index(req: Request, res: Response) {
@@ -101,6 +104,21 @@ export default {
   async delete(req: Request, res: Response) {
     const { id } = req.params;
     const advertsRepository = getRepository(Advert);
+    const imagesRepository = getRepository(Image);
+
+    const images = await imagesRepository.find({
+      select: ["path"],
+      where: { advert: id },
+    });
+
+    images.forEach((image) => {
+      const path = resolve(__dirname, "..", "..", "uploads", `${image.path}`);
+      console.log(path);
+      fs.rm(path, (err) => {
+        if (err) throw err;
+        console.log(`Success deleted ${path}`);
+      });
+    });
 
     const advert = await advertsRepository.delete(id);
     return res.json({ message: "Deletado com sucesso!" });
