@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import { getRepository } from "typeorm";
-import { resolve } from "path";
-import fs from "fs";
+import { getRepository, In } from "typeorm";
 import * as Yup from "yup";
 
 import advertView from "../views/adverts_view";
 import Advert from "../models/Advert";
 import Image from "../models/Image";
+import deleteImages from "../utils/deleteImages";
+import extractIds from "../utils/extractIds";
 
 export default {
   async index(req: Request, res: Response) {
@@ -35,6 +35,7 @@ export default {
     const { name, age, place, type, description, userId, userName } = req.body;
     const advertsRepository = getRepository(Advert);
     const requestImages = req.files as Express.Multer.File[];
+
     const images = requestImages.map((image) => {
       return { path: image.filename };
     });
@@ -100,7 +101,6 @@ export default {
     return res.json(advert);
   },
 
-  //TODO: quando dá o delete tem que apagar as images associadas do banco
   async delete(req: Request, res: Response) {
     const { id } = req.params;
     const advertsRepository = getRepository(Advert);
@@ -111,16 +111,9 @@ export default {
       where: { advert: id },
     });
 
-    images.forEach((image) => {
-      const path = resolve(__dirname, "..", "..", "uploads", `${image.path}`);
-      console.log(path);
-      fs.rm(path, (err) => {
-        if (err) throw err;
-        console.log(`Success deleted ${path}`);
-      });
-    });
-
+    deleteImages(images);
     const advert = await advertsRepository.delete(id);
+
     return res.json({ message: "Deletado com sucesso!" });
   },
 
@@ -128,9 +121,23 @@ export default {
     const { userId } = req.params;
 
     const advertsRepository = getRepository(Advert);
+    const imagesRepository = getRepository(Image);
 
+    const adverts = await advertsRepository.find({
+      select: ["id"],
+      where: { userId: userId },
+    });
+
+    const ids = extractIds(adverts);
+
+    const images = await imagesRepository.find({
+      select: ["path"],
+      where: { advert: In(ids) },
+    });
+
+    deleteImages(images);
     const advert = await advertsRepository.delete({ userId: parseInt(userId) });
 
-    return res.json({ message: "Deletados com sucesso!" });
+    return res.json({ message: "Deletados com sucesso!", advert });
   },
 };
