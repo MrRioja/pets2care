@@ -43,3 +43,5 @@ export default class Advert {
   @JoinColumn({ name: "advert_id" })
   images: Image[];
 }
+
+export { Advert };

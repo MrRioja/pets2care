@@ -2,17 +2,18 @@ import { Router } from "express";
 import multer from "multer";
 
 import uploadConfig from "./config/upload";
+import { AdvertsController } from "./controllers/AdvertsController";
 
-import AdvertsController from "./controllers/AdvertsController";
+const advertsController = new AdvertsController();
 
 const routes = Router();
 const upload = multer(uploadConfig);
 
-routes.get("/pets", AdvertsController.index);
-routes.get("/pets/:id", AdvertsController.show);
-routes.put("/pet/:id", AdvertsController.update);
-routes.post("/pets", upload.array("images"), AdvertsController.create);
-routes.delete("/pet/:id", AdvertsController.delete);
-routes.delete("/pets/:userId", AdvertsController.deleteAll);
+routes.get("/pets", advertsController.index);
+routes.get("/pets/:id", advertsController.show);
+routes.put("/pet/:id", advertsController.update);
+routes.post("/pets", upload.array("images"), advertsController.create);
+routes.delete("/pet/:id", advertsController.delete);
+routes.delete("/pets/:userId", advertsController.deleteAll);
 
 export default routes;

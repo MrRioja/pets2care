@@ -20,3 +20,5 @@ export default class Image {
   @JoinColumn({ name: "advert_id" })
   advert: Advert;
 }
+
+export { Image };
