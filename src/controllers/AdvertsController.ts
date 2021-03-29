@@ -81,6 +81,7 @@ class AdvertsController {
 
   //TODO: tem que ser igualzinho ao create, inclusive recebendo as images
   async update(req: Request, res: Response) {
+    console.log(req.body);
     let { userName, name, place, age, type, description } = req.body;
     const { id } = req.params;
 

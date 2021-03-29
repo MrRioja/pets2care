@@ -11,7 +11,7 @@ const upload = multer(uploadConfig);
 
 routes.get("/pets", advertsController.index);
 routes.get("/pets/:id", advertsController.show);
-routes.put("/pet/:id", advertsController.update);
+routes.patch("/pet/:id", advertsController.update);
 routes.post("/pets", upload.array("images"), advertsController.create);
 routes.delete("/pet/:id", advertsController.delete);
 routes.delete("/pets/:userId", advertsController.deleteAll);
