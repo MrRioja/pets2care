@@ -79,27 +79,18 @@ class AdvertsController {
     return res.status(201).json(advert);
   }
 
-  //TODO: tem que ser igualzinho ao create, inclusive recebendo as images
   async update(req: Request, res: Response) {
-    console.log(req.body);
-    let { userName, name, place, age, type, description } = req.body;
     const { id } = req.params;
 
     const advertsRepository = getCustomRepository(AdvertsRepository);
 
     const advert = await advertsRepository.findOneOrFail(id);
 
-    advert.userName = userName === undefined ? advert.userName : userName;
-    advert.name = name === undefined ? advert.name : name;
-    advert.age = age === undefined ? advert.age : age;
-    advert.place = place === undefined ? advert.place : place;
-    advert.type = type === undefined ? advert.type : type;
-    advert.description =
-      description === undefined ? advert.description : description;
+    advertsRepository.merge(advert, req.body);
 
-    await advertsRepository.update(id, req.body);
+    const advertUpdated = await advertsRepository.save(advert);
 
-    return res.json(advert);
+    return res.json(advertUpdated);
   }
 
   async delete(req: Request, res: Response) {
