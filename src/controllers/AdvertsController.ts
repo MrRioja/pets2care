@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getCustomRepository, In } from "typeorm";
+import { getConnection, getCustomRepository, In } from "typeorm";
 import * as Yup from "yup";
 
 import advertView from "../views/adverts_view";
@@ -81,8 +81,29 @@ class AdvertsController {
 
   async update(req: Request, res: Response) {
     const { id } = req.params;
+    const connection = getConnection();
+    const queryRunner = connection.createQueryRunner();
+    const requestImages = req.files as Express.Multer.File[];
 
     const advertsRepository = getCustomRepository(AdvertsRepository);
+    const imagesRepository = getCustomRepository(ImagesRepository);
+
+    const oldImages = await imagesRepository.find({
+      select: ["path"],
+      where: { advert: id },
+    });
+
+    deleteImages(oldImages);
+
+    const newImages = requestImages.map((image) => {
+      return { path: image.filename };
+    });
+
+    newImages.map(async (image) => {
+      await queryRunner.query(
+        `insert into images values (null, '${image.path}', ${id})`
+      );
+    });
 
     const advert = await advertsRepository.findOneOrFail(id);
 
