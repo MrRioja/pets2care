@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
   JoinColumn,
+  CreateDateColumn,
 } from "typeorm";
 
 import Image from "./Image";
@@ -16,23 +17,35 @@ export default class Advert {
   @Column()
   name: string;
 
-  @Column()
-  age: number;
+  @Column("date")
+  birthDate: string;
 
   @Column()
-  place: string;
+  gender: string;
 
   @Column()
   type: string;
 
   @Column()
+  breed: string;
+
+  @Column()
   description: string;
 
   @Column()
-  userId: number;
+  vaccinated: string;
 
   @Column()
-  userName: string;
+  dewormed: string;
+
+  @Column()
+  castrated: string;
+
+  @Column()
+  deficit: string;
+
+  @Column()
+  userId: number;
 
   @Column()
   createdAt: number;
