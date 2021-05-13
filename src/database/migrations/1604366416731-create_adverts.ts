@@ -57,12 +57,3 @@ export class createAdverts1604366416731 implements MigrationInterface {
     await queryRunner.dropTable("adverts");
   }
 }
-
-// Nome animal,
-// idade(meses),
-// cidade,
-// espécie,
-// descrição,
-// fotos,
-// id do usuario,
-// data criacao
