@@ -6,7 +6,7 @@ export default {
     return {
       id: advert.id,
       name: advert.name,
-      age: advert.age,
+      birthDate: advert.birthDate,
       gender: advert.gender,
       type: advert.type,
       breed: advert.breed,
