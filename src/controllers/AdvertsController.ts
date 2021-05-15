@@ -8,6 +8,7 @@ import deleteImages from "../utils/deleteImages";
 import stringToBoolean from "../utils/stringToBoolean";
 import { AdvertsRepository } from "../repositories/AdvertsRepository";
 import { ImagesRepository } from "../repositories/ImagesRepository";
+import Image from "../models/Image";
 
 class AdvertsController {
   async index(req: Request, res: Response) {
@@ -114,6 +115,12 @@ class AdvertsController {
     });
 
     deleteImages(oldImages);
+    await getConnection()
+      .createQueryBuilder()
+      .delete()
+      .from(Image)
+      .where("advert_id = :id", { id: id })
+      .execute();
 
     const newImages = requestImages.map((image) => {
       return { path: image.filename };
@@ -145,7 +152,7 @@ class AdvertsController {
     });
 
     deleteImages(images);
-    const advert = await advertsRepository.delete(id);
+    await advertsRepository.delete(id);
 
     return res.json({ message: "Deletado com sucesso!" });
   }
