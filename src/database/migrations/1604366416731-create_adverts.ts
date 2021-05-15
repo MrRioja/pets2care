@@ -19,12 +19,11 @@ export class createAdverts1604366416731 implements MigrationInterface {
             type: "varchar",
           },
           {
-            name: "age",
-            type: "integer",
-            length: "3",
+            name: "birthDate",
+            type: "date",
           },
           {
-            name: "place",
+            name: "gender",
             type: "varchar",
           },
           {
@@ -32,16 +31,32 @@ export class createAdverts1604366416731 implements MigrationInterface {
             type: "varchar",
           },
           {
+            name: "breed",
+            type: "varchar",
+          },
+          {
             name: "description",
             type: "text",
           },
           {
-            name: "userId",
-            type: "integer",
+            name: "vaccinated",
+            type: "boolean",
           },
           {
-            name: "userName",
-            type: "string",
+            name: "dewormed",
+            type: "boolean",
+          },
+          {
+            name: "castrated",
+            type: "boolean",
+          },
+          {
+            name: "deficit",
+            type: "boolean",
+          },
+          {
+            name: "userId",
+            type: "integer",
           },
           {
             name: "createdAt",

@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import advertView from "../views/adverts_view";
 import extractIds from "../utils/extractIds";
 import deleteImages from "../utils/deleteImages";
+import stringToBoolean from "../utils/stringToBoolean";
 import { AdvertsRepository } from "../repositories/AdvertsRepository";
 import { ImagesRepository } from "../repositories/ImagesRepository";
 
@@ -32,7 +33,9 @@ class AdvertsController {
 
   async create(req: Request, res: Response) {
     const createdAt = Date.now();
-    const { name, age, place, type, description, userId, userName } = req.body;
+    const { name, birthDate, gender, type, breed, description, userId } =
+      req.body;
+
     const advertsRepository = getCustomRepository(AdvertsRepository);
     const requestImages = req.files as Express.Multer.File[];
 
@@ -40,26 +43,43 @@ class AdvertsController {
       return { path: image.filename };
     });
 
+    const [vaccinated, dewormed, castrated, deficit] = await stringToBoolean([
+      req.body.vaccinated,
+      req.body.dewormed,
+      req.body.castrated,
+      req.body.deficit,
+    ]);
+
     const data = {
       name,
-      age,
-      place,
+      birthDate,
+      gender,
       type,
+      breed,
       description,
+      vaccinated,
+      dewormed,
+      castrated,
+      deficit,
       userId,
-      userName,
       createdAt,
       images,
     };
 
     const schema = Yup.object().shape({
       name: Yup.string().required(),
-      age: Yup.number().required(),
-      place: Yup.string().required(),
-      type: Yup.string().required().max(300),
-      description: Yup.string().required(),
+      birthDate: Yup.string()
+        .required()
+        .matches(/\d{4}-\d{2}-\d{2}/gm),
+      gender: Yup.string().required(),
+      type: Yup.string().required(),
+      breed: Yup.string().required(),
+      description: Yup.string().required().max(300),
+      boolVaccinated: Yup.boolean(),
+      boolDewormed: Yup.boolean(),
+      boolCastrated: Yup.boolean(),
+      boolDeficit: Yup.boolean(),
       userId: Yup.number().required(),
-      userName: Yup.string().required(),
       createdAt: Yup.number().required(),
       images: Yup.array(
         Yup.object().shape({
