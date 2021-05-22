@@ -55,13 +55,23 @@ export class createAdverts1604366416731 implements MigrationInterface {
             type: "boolean",
           },
           {
-            name: "userId",
-            type: "integer",
-          },
-          {
             name: "createdAt",
             type: "timestamp",
             default: "now()",
+          },
+          {
+            name: "userId",
+            type: "integer",
+          },
+        ],
+        foreignKeys: [
+          {
+            name: "UserAdvert",
+            columnNames: ["userId"],
+            referencedTableName: "users",
+            referencedColumnNames: ["id"],
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE",
           },
         ],
       })
