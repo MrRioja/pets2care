@@ -4,9 +4,11 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
   JoinColumn,
+  ManyToOne,
 } from "typeorm";
 
 import Image from "./Image";
+import User from "./User";
 
 @Entity("adverts")
 export default class Advert {
@@ -44,9 +46,6 @@ export default class Advert {
   deficit: boolean;
 
   @Column()
-  userId: number;
-
-  @Column()
   createdAt: number;
 
   @OneToMany(() => Image, (image) => image.advert, {
@@ -54,6 +53,10 @@ export default class Advert {
   })
   @JoinColumn({ name: "advert_id" })
   images: Image[];
+
+  @ManyToOne(() => User, (user) => user.id)
+  @JoinColumn({ name: "userId" })
+  userId: User;
 }
 
 export { Advert };
