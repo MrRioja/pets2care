@@ -16,6 +16,13 @@ export default {
       castrated: advert.castrated,
       deficit: advert.deficit,
       userId: advert.userId,
+      cep: advert.cep,
+      street: advert.street,
+      number: advert.number,
+      complement: advert.complement,
+      neighborhood: advert.neighborhood,
+      city: advert.city,
+      state: advert.state,
       createdAt: advert.createdAt,
       images: imagesView.renderMany(advert.images),
     };

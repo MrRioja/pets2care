@@ -11,7 +11,25 @@ export default class User {
   gender: string;
 
   @Column()
-  address: string;
+  cep: string;
+
+  @Column()
+  street: string;
+
+  @Column()
+  number: string;
+
+  @Column()
+  complement: string;
+
+  @Column()
+  neighborhood: string;
+
+  @Column()
+  city: string;
+
+  @Column()
+  state: string;
 
   @Column("date")
   birthDate: string;

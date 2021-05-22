@@ -46,6 +46,27 @@ export default class Advert {
   deficit: boolean;
 
   @Column()
+  cep: string;
+
+  @Column()
+  street: string;
+
+  @Column()
+  number: string;
+
+  @Column()
+  complement: string;
+
+  @Column()
+  neighborhood: string;
+
+  @Column()
+  city: string;
+
+  @Column()
+  state: string;
+
+  @Column()
   createdAt: number;
 
   @OneToMany(() => Image, (image) => image.advert, {

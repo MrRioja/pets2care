@@ -36,8 +36,22 @@ class AdvertsController {
 
   async create(req: Request, res: Response) {
     const createdAt = Date.now();
-    const { name, birthDate, gender, type, breed, description, userId } =
-      req.body;
+    const {
+      name,
+      birthDate,
+      gender,
+      type,
+      breed,
+      description,
+      userId,
+      cep,
+      street,
+      number,
+      complement,
+      neighborhood,
+      city,
+      state,
+    } = req.body;
 
     const advertsRepository = getCustomRepository(AdvertsRepository);
     const requestImages = req.files as Express.Multer.File[];
@@ -65,6 +79,13 @@ class AdvertsController {
       castrated,
       deficit,
       userId,
+      cep,
+      street,
+      number,
+      complement,
+      neighborhood,
+      city,
+      state,
       createdAt,
       images,
     };
@@ -83,6 +104,13 @@ class AdvertsController {
       boolCastrated: Yup.boolean(),
       boolDeficit: Yup.boolean(),
       userId: Yup.number().required(),
+      cep: Yup.string().required(),
+      street: Yup.string().required(),
+      number: Yup.string().required(),
+      complement: Yup.string().nullable(),
+      neighborhood: Yup.string().required(),
+      city: Yup.string().required(),
+      state: Yup.string().required(),
       createdAt: Yup.number().required(),
       images: Yup.array(
         Yup.object().shape({

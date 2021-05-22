@@ -63,6 +63,35 @@ export class createAdverts1604366416731 implements MigrationInterface {
             name: "userId",
             type: "integer",
           },
+          {
+            name: "cep",
+            type: "varchar",
+          },
+          {
+            name: "street",
+            type: "varchar",
+          },
+          {
+            name: "number",
+            type: "varchar",
+          },
+          {
+            name: "complement",
+            type: "varchar",
+            isNullable: true,
+          },
+          {
+            name: "neighborhood",
+            type: "varchar",
+          },
+          {
+            name: "city",
+            type: "varchar",
+          },
+          {
+            name: "state",
+            type: "varchar",
+          },
         ],
         foreignKeys: [
           {
