@@ -3,9 +3,11 @@ import { getConnection, getCustomRepository, In } from "typeorm";
 import * as Yup from "yup";
 
 import advertView from "../views/adverts_view";
+
 import extractIds from "../utils/extractIds";
 import deleteImages from "../utils/deleteImages";
 import stringToBoolean from "../utils/stringToBoolean";
+
 import { AdvertsRepository } from "../repositories/AdvertsRepository";
 import { ImagesRepository } from "../repositories/ImagesRepository";
 import Image from "../models/Image";
@@ -176,7 +178,7 @@ class AdvertsController {
     });
 
     deleteImages(images);
-    const advert = await advertsRepository.delete({ userId: parseInt(userId) });
+    const advert = await advertsRepository.delete(userId);
 
     return res.json({ message: "Deletados com sucesso!", advert });
   }
