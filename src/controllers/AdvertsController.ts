@@ -98,7 +98,7 @@ class AdvertsController {
       gender: Yup.string().required(),
       type: Yup.string().required(),
       breed: Yup.string().required(),
-      description: Yup.string().required().max(300),
+      description: Yup.string().max(1000),
       boolVaccinated: Yup.boolean(),
       boolDewormed: Yup.boolean(),
       boolCastrated: Yup.boolean(),
@@ -195,7 +195,7 @@ class AdvertsController {
 
     const adverts = await advertsRepository.find({
       select: ["id"],
-      where: { userId: userId },
+      where: { userId: parseInt(userId) },
     });
 
     const ids = extractIds(adverts);
@@ -206,7 +206,7 @@ class AdvertsController {
     });
 
     deleteImages(images);
-    const advert = await advertsRepository.delete(userId);
+    const advert = await advertsRepository.delete(ids);
 
     return res.json({ message: "Deletados com sucesso!", advert });
   }
