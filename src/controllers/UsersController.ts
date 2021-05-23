@@ -4,6 +4,8 @@ import { getCustomRepository } from "typeorm";
 import { UsersRepository } from "../repositories/UsersRepository";
 import AppError from "../errors/AppError";
 import users_view from "../views/users_view";
+import hashPassword from "../services/hashPassword";
+import { generateToken } from "../config/generateToken";
 
 class UsersController {
   async index(req: Request, res: Response) {
@@ -46,7 +48,7 @@ class UsersController {
     const data = {
       name,
       email,
-      password,
+      password: await hashPassword(password),
       gender,
       cep,
       street,
@@ -95,7 +97,9 @@ class UsersController {
 
     await usersRepository.save(user);
 
-    return res.status(201).json(user);
+    const token = await generateToken({ id: user.id });
+
+    return res.status(201).json(users_view.render(user, token));
   }
 
   async update(req: Request, res: Response) {

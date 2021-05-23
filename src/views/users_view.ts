@@ -1,7 +1,7 @@
 import User from "../models/User";
 
 export default {
-  render(user: User) {
+  render(user: User, token?: string) {
     return {
       id: user.id,
       name: user.name,
@@ -17,6 +17,7 @@ export default {
       birthDate: user.birthDate,
       telephone: user.telephone,
       createdAt: user.createdAt,
+      token: token,
     };
   },
 
