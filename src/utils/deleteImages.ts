@@ -10,3 +10,10 @@ export default function deleteImages(images: Image[]) {
     });
   });
 }
+
+export function deleteAvatar(avatar: string) {
+  const path = resolve(__dirname, "..", "..", "uploads", `${avatar}`);
+  fs.rm(path, (err) => {
+    if (err) throw err;
+  });
+}
