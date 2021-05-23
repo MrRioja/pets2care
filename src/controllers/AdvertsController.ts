@@ -23,6 +23,19 @@ class AdvertsController {
     return res.json(advertView.renderMany(adverts));
   }
 
+  async indexByUser(req: Request, res: Response) {
+    const { userId } = req.params;
+
+    const advertsRepository = getCustomRepository(AdvertsRepository);
+
+    const adverts = await advertsRepository.find({
+      where: { userId: parseInt(userId) },
+      relations: ["images"],
+    });
+
+    return res.json(advertView.renderMany(adverts));
+  }
+
   async show(req: Request, res: Response) {
     const { id } = req.params;
     const advertsRepository = getCustomRepository(AdvertsRepository);
@@ -206,9 +219,9 @@ class AdvertsController {
     });
 
     deleteImages(images);
-    const advert = await advertsRepository.delete(ids);
+    await advertsRepository.delete(ids);
 
-    return res.json({ message: "Deletados com sucesso!", advert });
+    return res.json({ message: "Deletados com sucesso!" });
   }
 }
 

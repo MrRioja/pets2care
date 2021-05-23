@@ -16,6 +16,7 @@ const routes = Router();
 const upload = multer(uploadConfig);
 
 routes.get("/pets", authMiddleware, advertsController.index);
+routes.get("/pets/user/:id", authMiddleware, advertsController.indexByUser);
 routes.get("/pets/:id", authMiddleware, advertsController.show);
 routes.put(
   "/pet/:id",
@@ -37,7 +38,7 @@ routes.get("/user/:id", authMiddleware, usersController.show);
 routes.put("/user/:id", authMiddleware, usersController.update);
 routes.delete("/user/:id", authMiddleware, usersController.delete);
 
-routes.post("/register", usersController.create);
+routes.post("/register", upload.array("avatar"), usersController.create);
 routes.post("/authenticate", authController.create);
 
 export default routes;
