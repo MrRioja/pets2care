@@ -44,6 +44,15 @@ export default class User {
   password: string;
 
   @Column()
+  description: string;
+
+  @Column()
+  website: string;
+
+  @Column()
+  avatar: string;
+
+  @Column()
   createdAt: number;
 }
 

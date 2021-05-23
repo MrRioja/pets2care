@@ -16,6 +16,9 @@ export default {
       state: user.state,
       birthDate: user.birthDate,
       telephone: user.telephone,
+      description: user.description,
+      website: user.website,
+      avatar: user.avatar,
       createdAt: user.createdAt,
       token: token,
     };
