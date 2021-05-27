@@ -102,7 +102,7 @@ class UsersController {
         .matches(/\d{4}-\d{2}-\d{2}/gm),
       telephone: Yup.string().required(),
       description: Yup.string().nullable().max(1000),
-      website: Yup.string().nullable().url(),
+      website: Yup.string().nullable(),
       avatar: Yup.string().nullable(),
       createdAt: Yup.number().required(),
     });
