@@ -18,7 +18,7 @@ export default {
       telephone: user.telephone,
       description: user.description,
       website: user.website,
-      avatar: user.avatar,
+      avatar: `${process.env.IP}/uploads/${user.avatar}`,
       createdAt: user.createdAt,
       token: token,
     };

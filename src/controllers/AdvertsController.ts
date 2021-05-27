@@ -11,6 +11,7 @@ import stringToBoolean from "../utils/stringToBoolean";
 import { AdvertsRepository } from "../repositories/AdvertsRepository";
 import { ImagesRepository } from "../repositories/ImagesRepository";
 import Image from "../models/Image";
+import adverts_view from "../views/adverts_view";
 
 class AdvertsController {
   async index(req: Request, res: Response) {
@@ -140,7 +141,7 @@ class AdvertsController {
 
     await advertsRepository.save(advert);
 
-    return res.status(201).json(advert);
+    return res.status(201).json(adverts_view.render(advert));
   }
 
   async update(req: Request, res: Response) {
