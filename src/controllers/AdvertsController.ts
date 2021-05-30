@@ -18,6 +18,7 @@ class AdvertsController {
     const advertsRepository = getCustomRepository(AdvertsRepository);
 
     const adverts = await advertsRepository.find({
+      where: { isActive: true },
       relations: ["images"],
     });
 
@@ -30,7 +31,7 @@ class AdvertsController {
     const advertsRepository = getCustomRepository(AdvertsRepository);
 
     const adverts = await advertsRepository.find({
-      where: { userId: parseInt(userId) },
+      where: { userId: parseInt(userId), isActive: true },
       relations: ["images"],
     });
 
@@ -42,6 +43,7 @@ class AdvertsController {
     const advertsRepository = getCustomRepository(AdvertsRepository);
 
     const advert = await advertsRepository.findOneOrFail(id, {
+      where: { isActive: true },
       relations: ["images"],
     });
 
@@ -80,7 +82,7 @@ class AdvertsController {
         req.body.dewormed,
         req.body.castrated,
         req.body.deficit,
-        (req.body.isActive = true),
+        req.body.isActive,
       ]);
 
     const data = {
@@ -120,7 +122,7 @@ class AdvertsController {
       dewormed: Yup.boolean(),
       castrated: Yup.boolean(),
       deficit: Yup.boolean(),
-      isActive: Yup.boolean().default(true),
+      isActive: Yup.boolean(),
       userId: Yup.number().required(),
       cep: Yup.string().required(),
       street: Yup.string().required(),
