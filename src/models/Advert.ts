@@ -45,6 +45,9 @@ export default class Advert {
   @Column("boolean")
   deficit: boolean;
 
+  @Column("boolean")
+  isActive: boolean;
+
   @Column()
   cep: string;
 

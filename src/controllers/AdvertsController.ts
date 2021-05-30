@@ -74,12 +74,14 @@ class AdvertsController {
       return { path: image.filename };
     });
 
-    const [vaccinated, dewormed, castrated, deficit] = await stringToBoolean([
-      req.body.vaccinated,
-      req.body.dewormed,
-      req.body.castrated,
-      req.body.deficit,
-    ]);
+    const [vaccinated, dewormed, castrated, deficit, isActive] =
+      await stringToBoolean([
+        req.body.vaccinated,
+        req.body.dewormed,
+        req.body.castrated,
+        req.body.deficit,
+        (req.body.isActive = true),
+      ]);
 
     const data = {
       name,
@@ -92,6 +94,7 @@ class AdvertsController {
       dewormed,
       castrated,
       deficit,
+      isActive,
       userId,
       cep,
       street,
@@ -113,10 +116,11 @@ class AdvertsController {
       type: Yup.string().required(),
       breed: Yup.string().required(),
       description: Yup.string().max(1000),
-      boolVaccinated: Yup.boolean(),
-      boolDewormed: Yup.boolean(),
-      boolCastrated: Yup.boolean(),
-      boolDeficit: Yup.boolean(),
+      vaccinated: Yup.boolean(),
+      dewormed: Yup.boolean(),
+      castrated: Yup.boolean(),
+      deficit: Yup.boolean(),
+      isActive: Yup.boolean().default(true),
       userId: Yup.number().required(),
       cep: Yup.string().required(),
       street: Yup.string().required(),

@@ -55,6 +55,10 @@ export class createAdverts1604366416731 implements MigrationInterface {
             type: "boolean",
           },
           {
+            name: "isActive",
+            type: "boolean",
+          },
+          {
             name: "createdAt",
             type: "timestamp",
             default: "now()",
