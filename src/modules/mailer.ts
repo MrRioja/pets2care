@@ -1,6 +1,6 @@
-const path = require("path");
-const nodemailer = require("nodemailer");
-const hbs = require("nodemailer-express-handlebars");
+import path from "path";
+import nodemailer from "nodemailer";
+import hbs from "nodemailer-express-handlebars";
 
 const { host, port, user, password } = require("../config/mail.json");
 
@@ -10,10 +10,13 @@ const transport = nodemailer.createTransport({
   auth: { user, password },
 });
 
-transport.user(
+transport.use(
   "compile",
   hbs({
-    viewEngine: "handlebars",
+    viewEngine: {
+      layoutsDir: path.resolve("./src/resources/mail/"),
+      extname: ".html",
+    },
     viewPath: path.resolve("./src/resources/mail/"),
     extName: ".html",
   })
