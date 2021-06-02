@@ -58,6 +58,11 @@
   dependencies:
     "@types/express" "*"
 
+"@types/express-handlebars@*":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@types/express-handlebars/-/express-handlebars-5.3.0.tgz#41103ebe07e44897a02558ee09580a96bfe7ae8c"
+  integrity sha512-OO3lcUW9Dw0mmqja8D7sUL3LKfHi5WlgK4jH2yS53dmX9mnWLCWJUlkn0E9t7u6Qp3h9b7lrNQt4j50BubmLYw==
+
 "@types/express-serve-static-core@*":
   version "4.17.13"
   resolved "https://registry.yarnpkg.com/@types/express-serve-static-core/-/express-serve-static-core-4.17.13.tgz#d9af025e925fc8b089be37423b8d1eac781be084"
@@ -100,6 +105,21 @@
   version "14.14.6"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.6.tgz#146d3da57b3c636cc0d1769396ce1cfa8991147f"
   integrity sha512-6QlRuqsQ/Ox/aJEQWBEJG7A9+u7oSYl3mem/K8IzxXG/kAGbV1YPD9Bg9Zw3vyxC/YP+zONKwy8hGkSt1jxFMw==
+
+"@types/nodemailer-express-handlebars@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@types/nodemailer-express-handlebars/-/nodemailer-express-handlebars-4.0.0.tgz#60bae4a772247552e893787ff7882f0ba5d1e15a"
+  integrity sha512-Y4/omJJ+jsBW0j9TyKk1tODG3HaXY1g7gq6eXrcU7RUKMZ++02TG9tAPyfh6vA6grsc0NXzFG+g594k4/8auMA==
+  dependencies:
+    "@types/express-handlebars" "*"
+    "@types/nodemailer" "*"
+
+"@types/nodemailer@*", "@types/nodemailer@^6.4.2":
+  version "6.4.2"
+  resolved "https://registry.yarnpkg.com/@types/nodemailer/-/nodemailer-6.4.2.tgz#d8ee254c969e6ad83fb9a0a0df3a817406a3fa3b"
+  integrity sha512-yhsqg5Xbr8aWdwjFS3QjkniW5/tLpWXtOYQcJdo9qE3DolBxsKzgRCQrteaMY0hos8MklJNSEsMqDpZynGzMNg==
+  dependencies:
+    "@types/node" "*"
 
 "@types/qs@*":
   version "6.9.5"
