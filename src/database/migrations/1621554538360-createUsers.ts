@@ -80,6 +80,16 @@ export class createUsers1621554538360 implements MigrationInterface {
             type: "varchar",
           },
           {
+            name: "passwordResetToken",
+            type: "varchar",
+            isNullable: true,
+          },
+          {
+            name: "passwordResetExpires",
+            type: "date",
+            isNullable: true,
+          },
+          {
             name: "createdAt",
             type: "timestamp",
             default: "now()",

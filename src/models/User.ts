@@ -53,6 +53,12 @@ export default class User {
   avatar: string;
 
   @Column()
+  passwordResetToken: string;
+
+  @Column("datetime")
+  passwordResetExpires: Date;
+
+  @Column()
   createdAt: number;
 }
 
