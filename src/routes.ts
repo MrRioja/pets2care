@@ -41,5 +41,7 @@ routes.delete("/user/", authMiddleware, usersController.delete);
 routes.post("/register", upload.array("avatar"), usersController.create);
 routes.post("/authenticate", authController.create);
 routes.post("/forgot_password", authController.update);
+routes.post("/forgot_password", authController.update);
+routes.post("/reset_password", authController.reset);
 
 export default routes;
