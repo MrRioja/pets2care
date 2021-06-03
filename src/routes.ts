@@ -5,10 +5,12 @@ import uploadConfig from "./config/upload";
 import { AdvertsController } from "./controllers/AdvertsController";
 import { UsersController } from "./controllers/UsersController";
 import { AuthController } from "./controllers/AuthController";
+import { SpotlightsController } from "./controllers/SpotlightsController";
 
 const advertsController = new AdvertsController();
 const usersController = new UsersController();
 const authController = new AuthController();
+const spotlightsController = new SpotlightsController();
 
 const authMiddleware = require("./middlewares/auth");
 
@@ -37,6 +39,13 @@ routes.get("/users", authMiddleware, usersController.index);
 routes.get("/user/:id", authMiddleware, usersController.show);
 routes.put("/user/:id", authMiddleware, usersController.update);
 routes.delete("/user/", authMiddleware, usersController.delete);
+
+routes.get("/spotlights/users", authMiddleware, spotlightsController.getUsers);
+routes.get(
+  "/spotlights/adverts",
+  authMiddleware,
+  spotlightsController.getAdverts
+);
 
 routes.post("/register", upload.array("avatar"), usersController.create);
 routes.post("/authenticate", authController.create);
