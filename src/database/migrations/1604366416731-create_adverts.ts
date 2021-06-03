@@ -59,6 +59,10 @@ export class createAdverts1604366416731 implements MigrationInterface {
             type: "boolean",
           },
           {
+            name: "isSpotlight",
+            type: "boolean",
+          },
+          {
             name: "createdAt",
             type: "timestamp",
             default: "now()",

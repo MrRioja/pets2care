@@ -80,6 +80,10 @@ export class createUsers1621554538360 implements MigrationInterface {
             type: "varchar",
           },
           {
+            name: "isSpotlight",
+            type: "boolean",
+          },
+          {
             name: "passwordResetToken",
             type: "varchar",
             isNullable: true,

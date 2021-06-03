@@ -10,6 +10,7 @@ import { ImagesRepository } from "../repositories/ImagesRepository";
 import { AdvertsRepository } from "../repositories/AdvertsRepository";
 import extractIds from "../utils/extractIds";
 import deleteImages, { deleteAvatar } from "../utils/deleteImages";
+import stringToBoolean from "../utils/stringToBoolean";
 
 class UsersController {
   async index(req: Request, res: Response) {
@@ -51,6 +52,8 @@ class UsersController {
       website,
     } = req.body;
 
+    const [isSpotlight] = await stringToBoolean([req.body.isSpotlight]);
+
     const userAlreadyExists = await usersRepository.findOne({ email });
 
     if (userAlreadyExists) {
@@ -81,6 +84,7 @@ class UsersController {
       telephone,
       description,
       website,
+      isSpotlight,
       avatar,
       createdAt,
     };
@@ -103,6 +107,7 @@ class UsersController {
       telephone: Yup.string().required(),
       description: Yup.string().nullable().max(1000),
       website: Yup.string().nullable(),
+      isSpotlight: Yup.boolean(),
       avatar: Yup.string().nullable(),
       createdAt: Yup.number().required(),
     });

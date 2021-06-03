@@ -48,6 +48,9 @@ export default class Advert {
   @Column("boolean")
   isActive: boolean;
 
+  @Column("boolean")
+  isSpotlight: boolean;
+
   @Column()
   cep: string;
 

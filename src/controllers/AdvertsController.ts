@@ -59,7 +59,6 @@ class AdvertsController {
       type,
       breed,
       description,
-      userId,
       cep,
       street,
       number,
@@ -69,6 +68,7 @@ class AdvertsController {
       state,
     } = req.body;
 
+    const userId = req.params.userId;
     const advertsRepository = getCustomRepository(AdvertsRepository);
     const requestImages = req.files as Express.Multer.File[];
 
@@ -76,13 +76,14 @@ class AdvertsController {
       return { path: image.filename };
     });
 
-    const [vaccinated, dewormed, castrated, deficit, isActive] =
+    const [vaccinated, dewormed, castrated, deficit, isActive, isSpotlight] =
       await stringToBoolean([
         req.body.vaccinated,
         req.body.dewormed,
         req.body.castrated,
         req.body.deficit,
         req.body.isActive,
+        req.body.isSpotlight,
       ]);
 
     const data = {
@@ -97,6 +98,7 @@ class AdvertsController {
       castrated,
       deficit,
       isActive,
+      isSpotlight,
       userId,
       cep,
       street,
@@ -123,6 +125,7 @@ class AdvertsController {
       castrated: Yup.boolean(),
       deficit: Yup.boolean(),
       isActive: Yup.boolean(),
+      isSpotlight: Yup.boolean(),
       userId: Yup.number().required(),
       cep: Yup.string().required(),
       street: Yup.string().required(),

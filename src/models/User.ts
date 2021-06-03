@@ -1,4 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+
 @Entity("users")
 export default class User {
   @PrimaryGeneratedColumn("increment")
@@ -51,6 +52,9 @@ export default class User {
 
   @Column()
   avatar: string;
+
+  @Column("boolean")
+  isSpotlight: boolean;
 
   @Column()
   passwordResetToken: string;
