@@ -12,13 +12,13 @@ import { AdvertsRepository } from "../repositories/AdvertsRepository";
 import { ImagesRepository } from "../repositories/ImagesRepository";
 import Image from "../models/Image";
 import adverts_view from "../views/adverts_view";
-
 class AdvertsController {
   async index(req: Request, res: Response) {
     const advertsRepository = getCustomRepository(AdvertsRepository);
 
     const adverts = await advertsRepository.find({
       where: { isActive: true },
+      loadRelationIds: true,
       relations: ["images"],
     });
 
@@ -33,6 +33,7 @@ class AdvertsController {
     const adverts = await advertsRepository.find({
       where: { userId: parseInt(userId), isActive: true },
       relations: ["images"],
+      loadRelationIds: true,
     });
 
     return res.json(advertView.renderMany(adverts));
@@ -45,6 +46,7 @@ class AdvertsController {
     const advert = await advertsRepository.findOneOrFail(id, {
       where: { isActive: true },
       relations: ["images"],
+      loadRelationIds: true,
     });
 
     return res.json(advertView.render(advert));
