@@ -31,7 +31,7 @@ export default class User {
   @Column()
   state: string;
 
-  @Column("date")
+  @Column("datetime")
   birthDate: string;
 
   @Column()

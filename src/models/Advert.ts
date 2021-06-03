@@ -18,7 +18,7 @@ export default class Advert {
   @Column()
   name: string;
 
-  @Column("date")
+  @Column("datetime")
   birthDate: string;
 
   @Column()
