@@ -148,7 +148,7 @@ class UsersController {
       avatar = "";
     }
 
-    if (oldAvatar.length > 0 && oldAvatar !== avatar) {
+    if (oldAvatar?.length > 0 && oldAvatar !== avatar) {
       deleteAvatar(oldAvatar);
     }
 
