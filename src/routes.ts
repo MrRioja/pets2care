@@ -35,9 +35,15 @@ routes.post(
 routes.delete("/pet/:id", authMiddleware, advertsController.delete);
 routes.delete("/pets/", authMiddleware, advertsController.deleteAll);
 
+routes.post("/register", upload.array("avatar"), usersController.create);
 routes.get("/users", authMiddleware, usersController.index);
-routes.get("/user/:id", authMiddleware, usersController.show);
-routes.put("/user/:id", authMiddleware, usersController.update);
+routes.get("/user", authMiddleware, usersController.show);
+routes.put(
+  "/user",
+  authMiddleware,
+  upload.array("avatar"),
+  usersController.update
+);
 routes.delete("/user/", authMiddleware, usersController.delete);
 
 routes.get("/spotlights/users", authMiddleware, spotlightsController.getUsers);
@@ -47,9 +53,7 @@ routes.get(
   spotlightsController.getAdverts
 );
 
-routes.post("/register", upload.array("avatar"), usersController.create);
 routes.post("/authenticate", authController.create);
-routes.post("/forgot_password", authController.update);
 routes.post("/forgot_password", authController.update);
 routes.post("/reset_password", authController.reset);
 
