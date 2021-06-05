@@ -70,14 +70,17 @@ export class createUsers1621554538360 implements MigrationInterface {
           {
             name: "description",
             type: "varchar",
+            isNullable: true,
           },
           {
             name: "website",
             type: "varchar",
+            isNullable: true,
           },
           {
             name: "avatar",
             type: "varchar",
+            isNullable: true,
           },
           {
             name: "isSpotlight",

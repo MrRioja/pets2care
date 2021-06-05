@@ -20,7 +20,7 @@ export default class User {
   @Column()
   number: string;
 
-  @Column()
+  @Column({ nullable: true })
   complement: string;
 
   @Column()
@@ -44,22 +44,22 @@ export default class User {
   @Column()
   password: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
-  @Column()
+  @Column({ nullable: true })
   website: string;
 
-  @Column()
+  @Column({ nullable: true })
   avatar: string;
 
   @Column("boolean")
   isSpotlight: boolean;
 
-  @Column()
+  @Column({ nullable: true })
   passwordResetToken: string;
 
-  @Column("datetime")
+  @Column({ type: "datetime", nullable: true })
   passwordResetExpires: Date;
 
   @Column()
