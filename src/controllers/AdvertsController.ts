@@ -6,7 +6,7 @@ import advertView from "../views/adverts_view";
 
 import extractIds from "../utils/extractIds";
 import deleteImages from "../utils/deleteImages";
-import stringToBoolean from "../utils/stringToBoolean";
+import arrayStringToBoolean from "../utils/stringToBoolean";
 
 import { AdvertsRepository } from "../repositories/AdvertsRepository";
 import { ImagesRepository } from "../repositories/ImagesRepository";
@@ -79,7 +79,7 @@ class AdvertsController {
     });
 
     const [vaccinated, dewormed, castrated, deficit, isActive, isSpotlight] =
-      await stringToBoolean([
+      await arrayStringToBoolean([
         req.body.vaccinated,
         req.body.dewormed,
         req.body.castrated,
@@ -193,7 +193,7 @@ class AdvertsController {
 
     const advertUpdated = await advertsRepository.save(advert);
 
-    return res.json(advertUpdated);
+    return res.json(advertView.render(advertUpdated));
   }
 
   async delete(req: Request, res: Response) {
