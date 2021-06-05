@@ -44,7 +44,7 @@ routes.put(
   upload.array("avatar"),
   usersController.update
 );
-routes.delete("/user/", authMiddleware, usersController.delete);
+routes.delete("/user", authMiddleware, usersController.delete);
 
 routes.get("/spotlights/users", authMiddleware, spotlightsController.getUsers);
 routes.get(

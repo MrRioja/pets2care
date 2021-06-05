@@ -152,6 +152,11 @@ class UsersController {
       deleteAvatar(oldAvatar);
     }
 
+    const isSpotlight =
+      req.body.isSpotlight !== undefined && req.body.isSpotlight !== ""
+        ? await stringToBoolean(req.body.isSpotlight)
+        : false;
+
     const data = {
       name: req.body.name,
       email: req.body.email,
@@ -167,7 +172,7 @@ class UsersController {
       telephone: req.body.telephone,
       description: req.body.description,
       website: req.body.website,
-      isSpotlight: req.body.isSpotlight,
+      isSpotlight,
       avatar,
     };
 
@@ -185,10 +190,9 @@ class UsersController {
     const advertsRepository = getCustomRepository(AdvertsRepository);
     const imagesRepository = getCustomRepository(ImagesRepository);
 
-    const avatar = await usersRepository.find({
-      select: ["avatar"],
-      where: { id: userId },
-    });
+    const user = await usersRepository.findOneOrFail(userId);
+
+    const avatar = user.avatar;
 
     const adverts = await advertsRepository.find({
       select: ["id"],
@@ -211,7 +215,7 @@ class UsersController {
     }
 
     if (avatar.length > 0) {
-      deleteAvatar(avatar[0].avatar);
+      deleteAvatar(avatar);
     }
 
     await usersRepository.delete(userId);
