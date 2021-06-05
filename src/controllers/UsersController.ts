@@ -10,7 +10,7 @@ import { ImagesRepository } from "../repositories/ImagesRepository";
 import { AdvertsRepository } from "../repositories/AdvertsRepository";
 import extractIds from "../utils/extractIds";
 import deleteImages, { deleteAvatar } from "../utils/deleteImages";
-import stringToBoolean from "../utils/stringToBoolean";
+import { stringToBoolean } from "../utils/stringToBoolean";
 
 class UsersController {
   async index(req: Request, res: Response) {
@@ -22,12 +22,12 @@ class UsersController {
   }
 
   async show(req: Request, res: Response) {
-    const { id } = req.params;
+    const { userId } = req.params;
     const usersRepository = getCustomRepository(UsersRepository);
 
-    const advert = await usersRepository.findOneOrFail(id);
+    const user = await usersRepository.findOneOrFail(userId);
 
-    return res.json(users_view.render(advert));
+    return res.json(users_view.render(user));
   }
 
   async create(req: Request, res: Response) {
@@ -52,8 +52,6 @@ class UsersController {
       website,
     } = req.body;
 
-    const [isSpotlight] = await stringToBoolean([req.body.isSpotlight]);
-
     const userAlreadyExists = await usersRepository.findOne({ email });
 
     if (userAlreadyExists) {
@@ -62,11 +60,19 @@ class UsersController {
         .json({ message: new AppError("User already exists").message });
     }
 
+    const isSpotlight =
+      req.body.isSpotlight !== undefined && ""
+        ? await stringToBoolean(req.body.isSpotlight)
+        : false;
+
     const requestImages = req.files as Express.Multer.File[];
 
-    const [{ path: avatar }] = requestImages.map((image) => {
-      return { path: image.filename };
-    });
+    const [{ path: avatar }] =
+      requestImages.length > 0
+        ? requestImages.map((image) => {
+            return { path: image.filename };
+          })
+        : [{ path: undefined }];
 
     const data = {
       name,
@@ -101,9 +107,7 @@ class UsersController {
       neighborhood: Yup.string().required(),
       city: Yup.string().required(),
       state: Yup.string().required(),
-      birthDate: Yup.string()
-        .required()
-        .matches(/\d{4}-\d{2}-\d{2}/gm),
+      birthDate: Yup.string().required(),
       telephone: Yup.string().required(),
       description: Yup.string().nullable().max(1000),
       website: Yup.string().nullable(),
@@ -126,17 +130,52 @@ class UsersController {
   }
 
   async update(req: Request, res: Response) {
-    const { id } = req.params;
+    const { userId } = req.params;
+    const requestImages = req.files as Express.Multer.File[];
 
     const usersRepository = getCustomRepository(UsersRepository);
+    const user = await usersRepository.findOneOrFail(userId);
 
-    const user = await usersRepository.findOneOrFail(id);
+    const oldAvatar = user.avatar;
 
-    usersRepository.merge(user, req.body);
+    let avatar = user.avatar;
+
+    if (requestImages.length > 0) {
+      [{ path: avatar }] = requestImages.map((image) => {
+        return { path: image.filename };
+      });
+    } else if (req.body.avatar === "") {
+      avatar = "";
+    }
+
+    if (oldAvatar.length > 0 && oldAvatar !== avatar) {
+      deleteAvatar(oldAvatar);
+    }
+
+    const data = {
+      name: req.body.name,
+      email: req.body.email,
+      gender: req.body.gender,
+      cep: req.body.cep,
+      street: req.body.street,
+      number: req.body.number,
+      complement: req.body.complement,
+      neighborhood: req.body.neighborhood,
+      city: req.body.city,
+      state: req.body.state,
+      birthDate: req.body.birthDate,
+      telephone: req.body.telephone,
+      description: req.body.description,
+      website: req.body.website,
+      isSpotlight: req.body.isSpotlight,
+      avatar,
+    };
+
+    usersRepository.merge(user, data);
 
     const userUpdated = await usersRepository.save(user);
 
-    return res.json(userUpdated);
+    return res.json(users_view.render(userUpdated));
   }
 
   async delete(req: Request, res: Response) {

@@ -18,7 +18,10 @@ export default {
       telephone: user.telephone,
       description: user.description,
       website: user.website,
-      avatar: `http://${process.env.IP}/uploads/${user.avatar}`,
+      avatar:
+        user.avatar?.length > 0 && user.avatar !== null
+          ? `http://${process.env.IP}/uploads/${user.avatar}`
+          : null,
       createdAt: user.createdAt,
       token: token,
     };
