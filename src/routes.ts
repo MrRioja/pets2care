@@ -19,7 +19,7 @@ const upload = multer(uploadConfig);
 
 routes.get("/pets", authMiddleware, advertsController.index);
 routes.get("/pets/user/", authMiddleware, advertsController.indexByUser);
-routes.get("/pets/:id", authMiddleware, advertsController.show);
+routes.get("/pet/:id", authMiddleware, advertsController.show);
 routes.put(
   "/pet/:id",
   authMiddleware,

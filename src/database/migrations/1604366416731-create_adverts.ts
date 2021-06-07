@@ -41,26 +41,32 @@ export class createAdverts1604366416731 implements MigrationInterface {
           {
             name: "vaccinated",
             type: "boolean",
+            default: false,
           },
           {
             name: "dewormed",
             type: "boolean",
+            default: false,
           },
           {
             name: "castrated",
             type: "boolean",
+            default: false,
           },
           {
             name: "deficit",
             type: "boolean",
+            default: false,
           },
           {
             name: "isActive",
             type: "boolean",
+            default: true,
           },
           {
             name: "isSpotlight",
             type: "boolean",
+            default: false,
           },
           {
             name: "createdAt",

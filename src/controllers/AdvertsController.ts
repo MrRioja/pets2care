@@ -46,8 +46,12 @@ class AdvertsController {
     const advert = await advertsRepository.findOneOrFail(id, {
       where: { isActive: true },
       relations: ["images"],
-      loadRelationIds: true,
+      loadEagerRelations: true,
+      loadRelationIds: {
+        disableMixedMap: false,
+      },
     });
+    console.log(advert);
 
     return res.json(advertView.render(advert));
   }
@@ -95,12 +99,12 @@ class AdvertsController {
       type,
       breed,
       description,
-      vaccinated,
-      dewormed,
-      castrated,
-      deficit,
-      isActive,
-      isSpotlight,
+      vaccinated: req.body.vaccinated !== undefined ? vaccinated : undefined,
+      dewormed: req.body.dewormed !== undefined ? dewormed : undefined,
+      castrated: req.body.castrated !== undefined ? castrated : undefined,
+      deficit: req.body.deficit !== undefined ? deficit : undefined,
+      isActive: req.body.isActive !== undefined ? isActive : undefined,
+      isSpotlight: req.body.isSpotlight !== undefined ? isSpotlight : undefined,
       userId,
       cep,
       street,
@@ -115,19 +119,17 @@ class AdvertsController {
 
     const schema = Yup.object().shape({
       name: Yup.string().required(),
-      birthDate: Yup.string()
-        .required()
-        .matches(/\d{4}-\d{2}-\d{2}/gm),
+      birthDate: Yup.string().required(),
       gender: Yup.string().required(),
       type: Yup.string().required(),
       breed: Yup.string().required(),
       description: Yup.string().max(1000),
-      vaccinated: Yup.boolean(),
-      dewormed: Yup.boolean(),
-      castrated: Yup.boolean(),
-      deficit: Yup.boolean(),
-      isActive: Yup.boolean(),
-      isSpotlight: Yup.boolean(),
+      vaccinated: Yup.boolean().nullable(),
+      dewormed: Yup.boolean().nullable(),
+      castrated: Yup.boolean().nullable(),
+      deficit: Yup.boolean().nullable(),
+      isActive: Yup.boolean().nullable(),
+      isSpotlight: Yup.boolean().nullable(),
       userId: Yup.number().required(),
       cep: Yup.string().required(),
       street: Yup.string().required(),

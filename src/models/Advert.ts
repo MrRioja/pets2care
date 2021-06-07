@@ -33,22 +33,22 @@ export default class Advert {
   @Column()
   description: string;
 
-  @Column("boolean")
+  @Column("boolean", { default: false })
   vaccinated: boolean;
 
-  @Column("boolean")
+  @Column("boolean", { default: false })
   dewormed: boolean;
 
-  @Column("boolean")
+  @Column("boolean", { default: false })
   castrated: boolean;
 
-  @Column("boolean")
+  @Column("boolean", { default: false })
   deficit: boolean;
 
-  @Column("boolean")
+  @Column("boolean", { default: true })
   isActive: boolean;
 
-  @Column("boolean")
+  @Column("boolean", { default: false })
   isSpotlight: boolean;
 
   @Column()
@@ -83,7 +83,7 @@ export default class Advert {
 
   @ManyToOne(() => User, (user) => user.id)
   @JoinColumn({ name: "userId" })
-  userId: User;
+  userId: User & number;
 }
 
 export { Advert };
