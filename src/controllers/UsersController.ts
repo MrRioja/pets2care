@@ -21,11 +21,20 @@ class UsersController {
     return res.json(users_view.renderMany(users));
   }
 
-  async show(req: Request, res: Response) {
+  async showUserLogged(req: Request, res: Response) {
     const { userId } = req.params;
     const usersRepository = getCustomRepository(UsersRepository);
 
     const user = await usersRepository.findOneOrFail(userId);
+
+    return res.json(users_view.render(user));
+  }
+
+  async showUser(req: Request, res: Response) {
+    const { id } = req.params;
+    const usersRepository = getCustomRepository(UsersRepository);
+
+    const user = await usersRepository.findOneOrFail(id);
 
     return res.json(users_view.render(user));
   }

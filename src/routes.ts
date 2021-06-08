@@ -18,7 +18,8 @@ const routes = Router();
 const upload = multer(uploadConfig);
 
 routes.get("/pets", authMiddleware, advertsController.index);
-routes.get("/pets/user/", authMiddleware, advertsController.indexByUser);
+routes.get("/pets/user", authMiddleware, advertsController.indexByUserLogged);
+routes.get("/pets/user/:id", authMiddleware, advertsController.indexByUser);
 routes.get("/pet/:id", authMiddleware, advertsController.show);
 routes.put(
   "/pet/:id",
@@ -33,11 +34,12 @@ routes.post(
   advertsController.create
 );
 routes.delete("/pet/:id", authMiddleware, advertsController.delete);
-routes.delete("/pets/", authMiddleware, advertsController.deleteAll);
+routes.delete("/pets", authMiddleware, advertsController.deleteAll);
 
 routes.post("/register", upload.array("avatar"), usersController.create);
 routes.get("/users", authMiddleware, usersController.index);
-routes.get("/user", authMiddleware, usersController.show);
+routes.get("/user", authMiddleware, usersController.showUserLogged);
+routes.get("/user/:id", authMiddleware, usersController.showUser);
 routes.put(
   "/user",
   authMiddleware,

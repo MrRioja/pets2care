@@ -25,13 +25,27 @@ class AdvertsController {
     return res.json(advertView.renderMany(adverts));
   }
 
-  async indexByUser(req: Request, res: Response) {
+  async indexByUserLogged(req: Request, res: Response) {
     const { userId } = req.params;
 
     const advertsRepository = getCustomRepository(AdvertsRepository);
 
     const adverts = await advertsRepository.find({
       where: { userId: parseInt(userId), isActive: true },
+      relations: ["images"],
+      loadRelationIds: true,
+    });
+
+    return res.json(advertView.renderMany(adverts));
+  }
+
+  async indexByUser(req: Request, res: Response) {
+    const { id } = req.params;
+
+    const advertsRepository = getCustomRepository(AdvertsRepository);
+
+    const adverts = await advertsRepository.find({
+      where: { userId: parseInt(id), isActive: true },
       relations: ["images"],
       loadRelationIds: true,
     });
