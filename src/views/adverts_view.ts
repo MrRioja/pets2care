@@ -23,6 +23,8 @@ export default {
       neighborhood: advert.neighborhood,
       city: advert.city,
       state: advert.state,
+      isSpotlight: advert.isSpotlight,
+      isActive: advert.isActive,
       createdAt: advert.createdAt,
       images: imagesView.renderMany(advert.images),
     };

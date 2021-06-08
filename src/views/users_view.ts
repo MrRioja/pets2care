@@ -22,6 +22,7 @@ export default {
         user.avatar?.length > 0 && user.avatar !== null
           ? `http://${process.env.IP}/uploads/${user.avatar}`
           : null,
+      isSpotlight: user.isSpotlight,
       createdAt: user.createdAt,
       token: token,
     };
