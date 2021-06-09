@@ -58,7 +58,6 @@ class AdvertsController {
       where: { isActive: true },
       relations: ["images", "userId"],
     });
-    console.log(advert);
 
     return res.json(advertView.render(advert));
   }
@@ -199,8 +198,12 @@ class AdvertsController {
     const advert = await advertsRepository.findOneOrFail(id);
 
     advertsRepository.merge(advert, req.body);
+    await advertsRepository.save(advert);
 
-    const advertUpdated = await advertsRepository.save(advert);
+    const advertUpdated = await advertsRepository.findOneOrFail(parseInt(id), {
+      where: { isActive: true },
+      relations: ["images", "userId"],
+    });
 
     return res.json(advertView.render(advertUpdated));
   }

@@ -15,7 +15,8 @@ export default {
       dewormed: advert.dewormed,
       castrated: advert.castrated,
       deficit: advert.deficit,
-      userId: advert.userId.id,
+      userId:
+        advert.userId?.id === undefined ? advert.userId : advert.userId.id,
       cep: advert.cep,
       street: advert.street,
       number: advert.number,

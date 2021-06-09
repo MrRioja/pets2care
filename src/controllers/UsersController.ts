@@ -223,7 +223,7 @@ class UsersController {
       await advertsRepository.delete(ids);
     }
 
-    if (avatar.length > 0) {
+    if (avatar?.length > 0) {
       deleteAvatar(avatar);
     }
 
