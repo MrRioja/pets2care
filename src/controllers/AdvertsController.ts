@@ -18,8 +18,7 @@ class AdvertsController {
 
     const adverts = await advertsRepository.find({
       where: { isActive: true },
-      loadRelationIds: true,
-      relations: ["images"],
+      relations: ["images", "userId"],
     });
 
     return res.json(advertView.renderMany(adverts));
@@ -32,8 +31,7 @@ class AdvertsController {
 
     const adverts = await advertsRepository.find({
       where: { userId: parseInt(userId), isActive: true },
-      relations: ["images"],
-      loadRelationIds: true,
+      relations: ["images", "userId"],
     });
 
     return res.json(advertView.renderMany(adverts));
@@ -46,8 +44,7 @@ class AdvertsController {
 
     const adverts = await advertsRepository.find({
       where: { userId: parseInt(id), isActive: true },
-      relations: ["images"],
-      loadRelationIds: true,
+      relations: ["images", "userId"],
     });
 
     return res.json(advertView.renderMany(adverts));
@@ -59,11 +56,7 @@ class AdvertsController {
 
     const advert = await advertsRepository.findOneOrFail(id, {
       where: { isActive: true },
-      relations: ["images"],
-      loadEagerRelations: true,
-      loadRelationIds: {
-        disableMixedMap: false,
-      },
+      relations: ["images", "userId"],
     });
     console.log(advert);
 
