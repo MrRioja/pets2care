@@ -6,11 +6,13 @@ import { AdvertsController } from "./controllers/AdvertsController";
 import { UsersController } from "./controllers/UsersController";
 import { AuthController } from "./controllers/AuthController";
 import { SpotlightsController } from "./controllers/SpotlightsController";
+import { HighlightsController } from "./controllers/HighlightsController";
 
 const advertsController = new AdvertsController();
 const usersController = new UsersController();
 const authController = new AuthController();
 const spotlightsController = new SpotlightsController();
+const highlightsController = new HighlightsController();
 
 const authMiddleware = require("./middlewares/auth");
 
@@ -54,6 +56,16 @@ routes.get(
   authMiddleware,
   spotlightsController.getAdverts
 );
+
+routes.get("/highlights", highlightsController.index);
+routes.get("/highlight/:id", highlightsController.show);
+routes.post("/highlights", upload.array("image"), highlightsController.create);
+routes.put(
+  "/highlight/:id",
+  upload.array("image"),
+  highlightsController.update
+);
+routes.delete("/highlight/:id", highlightsController.delete);
 
 routes.post("/authenticate", authController.create);
 routes.post("/forgot_password", authController.update);
