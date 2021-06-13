@@ -172,35 +172,60 @@ class AdvertsController {
     const advertsRepository = getCustomRepository(AdvertsRepository);
     const imagesRepository = getCustomRepository(ImagesRepository);
 
-    const oldImages = await imagesRepository.find({
-      select: ["path"],
-      where: { advert: id },
+    const [vaccinated, dewormed, castrated, deficit, isActive, isSpotlight] =
+      await arrayStringToBoolean([
+        req.body.vaccinated,
+        req.body.dewormed,
+        req.body.castrated,
+        req.body.deficit,
+        req.body.isActive,
+        req.body.isSpotlight,
+      ]);
+
+    if (requestImages.length > 0) {
+      const oldImages = await imagesRepository.find({
+        select: ["path"],
+        where: { advert: id },
+      });
+
+      deleteImages(oldImages);
+      await getConnection()
+        .createQueryBuilder()
+        .delete()
+        .from(Image)
+        .where("advert_id = :id", { id: id })
+        .execute();
+
+      const newImages = requestImages.map((image) => {
+        return { path: image.filename };
+      });
+
+      newImages.map(async (image) => {
+        await queryRunner.query(
+          `insert into images values (null, '${image.path}', ${id})`
+        );
+      });
+    }
+
+    const advert = await advertsRepository.findOneOrFail(id, {
+      where: { isActive: true },
+      relations: ["images", "userId"],
     });
 
-    deleteImages(oldImages);
-    await getConnection()
-      .createQueryBuilder()
-      .delete()
-      .from(Image)
-      .where("advert_id = :id", { id: id })
-      .execute();
+    const newData = {
+      ...req.body,
+      vaccinated: req.body.vaccinated !== undefined ? vaccinated : undefined,
+      dewormed: req.body.dewormed !== undefined ? dewormed : undefined,
+      castrated: req.body.castrated !== undefined ? castrated : undefined,
+      deficit: req.body.deficit !== undefined ? deficit : undefined,
+      isActive: req.body.isActive !== undefined ? isActive : undefined,
+      isSpotlight: req.body.isSpotlight !== undefined ? isSpotlight : undefined,
+    };
 
-    const newImages = requestImages.map((image) => {
-      return { path: image.filename };
-    });
-
-    newImages.map(async (image) => {
-      await queryRunner.query(
-        `insert into images values (null, '${image.path}', ${id})`
-      );
-    });
-
-    const advert = await advertsRepository.findOneOrFail(id);
-
-    advertsRepository.merge(advert, req.body);
+    advertsRepository.merge(advert, newData);
     await advertsRepository.save(advert);
 
-    const advertUpdated = await advertsRepository.findOneOrFail(parseInt(id), {
+    const advertUpdated = await advertsRepository.findOneOrFail(id, {
       where: { isActive: true },
       relations: ["images", "userId"],
     });
