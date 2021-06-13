@@ -181,7 +181,7 @@ class UsersController {
       telephone: req.body.telephone,
       description: req.body.description,
       website: req.body.website,
-      isSpotlight,
+      isSpotlight: req.body.isSpotlight !== undefined ? isSpotlight : undefined,
       avatar,
     };
 

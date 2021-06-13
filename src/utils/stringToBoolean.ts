@@ -12,5 +12,9 @@ export default async function arrayStringToBoolean(vector: String[]) {
 }
 
 export async function stringToBoolean(string: String) {
-  return Boolean(string.toLowerCase() == "true");
+  if (string !== undefined) {
+    return Boolean(string.toLowerCase() == "true");
+  } else {
+    return false;
+  }
 }
