@@ -234,19 +234,28 @@ class AdvertsController {
   }
 
   async delete(req: Request, res: Response) {
-    const { id } = req.params;
+    const { id, userId } = req.params;
     const advertsRepository = getCustomRepository(AdvertsRepository);
     const imagesRepository = getCustomRepository(ImagesRepository);
 
-    const images = await imagesRepository.find({
-      select: ["path"],
-      where: { advert: id },
+    const advert = await advertsRepository.findOneOrFail(id, {
+      where: { isActive: true },
+      relations: ["images", "userId"],
     });
 
-    deleteImages(images);
-    await advertsRepository.delete(id);
+    if (advert.userId.id === parseInt(userId)) {
+      const images = await imagesRepository.find({
+        select: ["path"],
+        where: { advert: id },
+      });
 
-    return res.json({ message: "Deletado com sucesso!" });
+      deleteImages(images);
+      await advertsRepository.delete(id);
+
+      return res.json({ message: "Deletado com sucesso!" });
+    } else {
+      return res.json({ message: "Usuário logado não é dono do anúncio!" });
+    }
   }
 
   async deleteAll(req: Request, res: Response) {
