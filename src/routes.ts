@@ -1,18 +1,20 @@
-import { Router } from "express";
 import multer from "multer";
-
+import { Router } from "express";
 import uploadConfig from "./config/upload";
+
 import { AdvertsController } from "./controllers/AdvertsController";
 import { UsersController } from "./controllers/UsersController";
 import { AuthController } from "./controllers/AuthController";
 import { SpotlightsController } from "./controllers/SpotlightsController";
 import { HighlightsController } from "./controllers/HighlightsController";
+import { FavoritesController } from "./controllers/FavoritesController";
 
 const advertsController = new AdvertsController();
 const usersController = new UsersController();
 const authController = new AuthController();
 const spotlightsController = new SpotlightsController();
 const highlightsController = new HighlightsController();
+const favoritesController = new FavoritesController();
 
 const authMiddleware = require("./middlewares/auth");
 
@@ -66,6 +68,10 @@ routes.put(
   highlightsController.update
 );
 routes.delete("/highlight/:id", highlightsController.delete);
+
+routes.post("/favorite/:id", authMiddleware, favoritesController.create);
+routes.delete("/favorite/:id", authMiddleware, favoritesController.delete);
+routes.get("/favorites", authMiddleware, favoritesController.index);
 
 routes.post("/authenticate", authController.create);
 routes.post("/forgot_password", authController.update);
