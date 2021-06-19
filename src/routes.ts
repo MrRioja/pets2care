@@ -8,6 +8,7 @@ import { AuthController } from "./controllers/AuthController";
 import { SpotlightsController } from "./controllers/SpotlightsController";
 import { HighlightsController } from "./controllers/HighlightsController";
 import { FavoritesController } from "./controllers/FavoritesController";
+import { DonationsController } from "./controllers/DonationsController";
 
 const advertsController = new AdvertsController();
 const usersController = new UsersController();
@@ -15,6 +16,7 @@ const authController = new AuthController();
 const spotlightsController = new SpotlightsController();
 const highlightsController = new HighlightsController();
 const favoritesController = new FavoritesController();
+const donationsController = new DonationsController();
 
 const authMiddleware = require("./middlewares/auth");
 
@@ -72,6 +74,10 @@ routes.delete("/highlight/:id", highlightsController.delete);
 routes.post("/favorite/:id", authMiddleware, favoritesController.create);
 routes.delete("/favorite/:id", authMiddleware, favoritesController.delete);
 routes.get("/favorites", authMiddleware, favoritesController.index);
+
+routes.post("/donation/:id", authMiddleware, donationsController.create);
+routes.post("/donations", authMiddleware, donationsController.index);
+routes.post("/donation/accept/:id", authMiddleware, donationsController.accept);
 
 routes.post("/authenticate", authController.create);
 routes.post("/forgot_password", authController.update);
