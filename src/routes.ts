@@ -76,7 +76,7 @@ routes.delete("/favorite/:id", authMiddleware, favoritesController.delete);
 routes.get("/favorites", authMiddleware, favoritesController.index);
 
 routes.post("/donation/:id", authMiddleware, donationsController.create);
-routes.post("/donations", authMiddleware, donationsController.index);
+routes.get("/donations", authMiddleware, donationsController.index);
 routes.post("/donation/accept/:id", authMiddleware, donationsController.accept);
 
 routes.post("/authenticate", authController.create);
