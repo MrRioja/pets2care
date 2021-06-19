@@ -30,6 +30,7 @@ export class CreateDonations1623811927542 implements MigrationInterface {
             name: "accepted",
             type: "boolean",
             default: false,
+            isNullable: true,
           },
           {
             name: "createdAt",

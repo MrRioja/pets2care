@@ -28,7 +28,7 @@ export default class Donation {
   @Column()
   advertId: number;
 
-  @Column()
+  @Column("boolean", { nullable: true })
   accepted: boolean;
 
   @Column()
