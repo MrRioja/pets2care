@@ -2,11 +2,7 @@ import Favorite from "../models/Favorite";
 
 export default {
   render(favorite: Favorite) {
-    return {
-      id: favorite.id,
-      advert: favorite.advertId,
-      createdAt: favorite.createdAt,
-    };
+    return favorite.advertId;
   },
   renderMany(favorites: Favorite[]) {
     return favorites.map((favorite) => this.render(favorite));
