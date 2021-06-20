@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
-import { getCustomRepository } from "typeorm";
+import { getCustomRepository, In } from "typeorm";
+import { AdvertsRepository } from "../repositories/AdvertsRepository";
 import { FavoritesRepository } from "../repositories/FavoritesRepository";
-import favorites_view from "../views/favorites_view";
+import adverts_view from "../views/adverts_view";
 
 class FavoritesController {
   async create(req: Request, res: Response) {
@@ -59,9 +60,21 @@ class FavoritesController {
     const favorites = await favoritesRepository.find({
       where: { userId: userId },
       relations: ["advertId"],
+      loadRelationIds: true,
     });
 
-    return res.json(favorites_view.renderMany(favorites));
+    let ids: number[] = [];
+
+    favorites.forEach((favorite) => ids.push(favorite.advertId));
+
+    const advertsRepository = getCustomRepository(AdvertsRepository);
+
+    const adverts = await advertsRepository.find({
+      where: { id: In(ids) },
+      relations: ["images", "userId"],
+    });
+
+    return res.json(adverts_view.renderMany(adverts));
   }
 }
 
