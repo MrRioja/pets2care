@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { getConnection, getCustomRepository } from "typeorm";
+import { getCustomRepository } from "typeorm";
 import AppError from "../errors/AppError";
-import Donation from "../models/Donation";
 
 import { AdvertsRepository } from "../repositories/AdvertsRepository";
 import { DonationsRepository } from "../repositories/DonationsRepository";
 import { stringToBoolean } from "../utils/stringToBoolean";
+import donations_view from "../views/donations_view";
 
 class DonationsController {
   async create(req: Request, res: Response) {
@@ -56,15 +56,13 @@ class DonationsController {
   async index(req: Request, res: Response) {
     const { userId } = req.params;
 
-    const donations = await getConnection()
-      .createQueryBuilder()
-      .select("*")
-      .from(Donation, "donations")
-      .where("userId = :id", { id: parseInt(userId) })
-      .orWhere("ownerId = :id", { id: parseInt(userId) })
-      .execute();
+    const donationsRepository = getCustomRepository(DonationsRepository);
+    const donations = await donationsRepository.find({
+      relations: ["userId", "ownerId", "advertId", "advertId.images"],
+      where: [{ ownerId: userId }, { userId: userId }],
+    });
 
-    return res.json(donations);
+    return res.json(donations_view.renderMany(donations));
   }
 
   async accept(req: Request, res: Response) {

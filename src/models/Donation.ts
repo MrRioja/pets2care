@@ -16,17 +16,15 @@ export default class Donation {
 
   @ManyToOne(() => User, (user) => user.id)
   @JoinColumn({ name: "userId" })
-  userId: number;
+  userId: User & number;
 
   @ManyToOne(() => User, (user) => user.id)
-  @JoinColumn({ name: "userId" })
-  @Column()
-  ownerId: number;
+  @JoinColumn({ name: "ownerId" })
+  ownerId: User & number;
 
   @ManyToOne(() => Advert, (advert) => advert.id)
   @JoinColumn({ name: "advertId" })
-  @Column()
-  advertId: number;
+  advertId: Advert & number;
 
   @Column("boolean", { nullable: true })
   accepted: boolean;
