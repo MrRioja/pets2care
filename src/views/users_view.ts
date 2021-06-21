@@ -5,19 +5,35 @@ export default {
     return {
       id: user.id,
       name: user.name,
-      email: accepted === true ? user.email : "Sem permissão para visualizar",
+      email:
+        accepted === true || accepted === undefined
+          ? user.email
+          : "Sem permissão para visualizar",
       gender: user.gender,
-      cep: accepted === true ? user.cep : "Sem permissão para visualizar",
-      street: accepted === true ? user.street : "Sem permissão para visualizar",
-      number: accepted === true ? user.number : "Sem permissão para visualizar",
+      cep:
+        accepted === true || accepted === undefined
+          ? user.cep
+          : "Sem permissão para visualizar",
+      street:
+        accepted === true || accepted === undefined
+          ? user.street
+          : "Sem permissão para visualizar",
+      number:
+        accepted === true || accepted === undefined
+          ? user.number
+          : "Sem permissão para visualizar",
       complement:
-        accepted === true ? user.complement : "Sem permissão para visualizar",
+        accepted === true || accepted === undefined
+          ? user.complement
+          : "Sem permissão para visualizar",
       neighborhood: user.neighborhood,
       city: user.city,
       state: user.state,
       birthDate: user.birthDate,
       telephone:
-        accepted === true ? user.telephone : "Sem permissão para visualizar",
+        accepted === true || accepted === undefined
+          ? user.telephone
+          : "Sem permissão para visualizar",
       description: user.description,
       website: user.website,
       avatar:
