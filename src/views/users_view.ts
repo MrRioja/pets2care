@@ -1,7 +1,7 @@
 import User from "../models/User";
 
 export default {
-  render(user: User, token?: string, accepted?: boolean) {
+  render(user: User, token?: string, accepted = false) {
     return {
       id: user.id,
       name: user.name,

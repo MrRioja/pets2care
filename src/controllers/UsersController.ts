@@ -27,7 +27,7 @@ class UsersController {
 
     const user = await usersRepository.findOneOrFail(userId);
 
-    return res.json(users_view.render(user));
+    return res.json(users_view.render(user, undefined, true));
   }
 
   async showUser(req: Request, res: Response) {

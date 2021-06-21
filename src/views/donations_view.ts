@@ -1,5 +1,4 @@
 import Donation from "../models/Donation";
-import { stringToBoolean } from "../utils/stringToBoolean";
 import adverts_view from "./adverts_view";
 import users_view from "./users_view";
 

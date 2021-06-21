@@ -32,7 +32,7 @@ class AuthController {
 
     const token = await generateToken({ id: user.id });
 
-    return res.json(users_view.render(user, token));
+    return res.json(users_view.render(user, token, true));
   }
 
   async update(req: Request, res: Response) {
