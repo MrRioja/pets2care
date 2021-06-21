@@ -1,21 +1,23 @@
 import User from "../models/User";
 
 export default {
-  render(user: User, token?: string) {
+  render(user: User, token?: string, accepted?: boolean) {
     return {
       id: user.id,
       name: user.name,
-      email: user.email,
+      email: accepted === true ? user.email : "Sem permissão para visualizar",
       gender: user.gender,
-      cep: user.cep,
-      street: user.street,
-      number: user.number,
-      complement: user.complement,
+      cep: accepted === true ? user.cep : "Sem permissão para visualizar",
+      street: accepted === true ? user.street : "Sem permissão para visualizar",
+      number: accepted === true ? user.number : "Sem permissão para visualizar",
+      complement:
+        accepted === true ? user.complement : "Sem permissão para visualizar",
       neighborhood: user.neighborhood,
       city: user.city,
       state: user.state,
       birthDate: user.birthDate,
-      telephone: user.telephone,
+      telephone:
+        accepted === true ? user.telephone : "Sem permissão para visualizar",
       description: user.description,
       website: user.website,
       avatar:
