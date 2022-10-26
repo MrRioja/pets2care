@@ -1,4 +1,4 @@
-# Pets2Care
+# Pets2Care API
 
 <p align="center">
   <img src="https://img.shields.io/static/v1?label=Pets&message=2Care&color=blueviolet&style=for-the-badge"/>
@@ -20,7 +20,34 @@
 
 ## Sobre
 
+Esse projeto foi meu trabalho de conclusão de curso da minha graduação em Sistemas de Informação cursado de janeiro de 2018 até dezembro de 2021.
+
+> Esse repositório contem somente o backend do projeto Pets2Care
+
 ## Pets2Care
+
+O Pets2Care é uma plataforma cujo objetivo é servir de vitrine para que seus usuários possam reportar e adotar animais que estão em condições vulneráveis. Aqui temos o backend da plataforma construído com NodeJS e ele possui diversos recursos para que as funcionalidades propostas pelo projeto sejam satisfeitas.
+
+Essa API possui as funcionalidades abaixo:
+
+- [x] Refresh token.
+- [x] Upload de imagens.
+- [x] Autenticação com JWT.
+- [x] Criptografia de senha.
+- [x] Envio de e-mail para alteração de senha.
+
+E possui operações de cadastro, listagem, exclusão e edição para a grande maioria das entidades da aplicação, entidades essas que são:
+
+- User: Usuários da aplicação.
+- Advert: Anúncios de animais cadastrados por usuários.
+- Donations: Registro de doações realizadas dentro da plataforma podendo ser de animais, alimentos, medicamentos e entre outros.
+- Spotlights: Anúncios em destaques na plataforma e com maior probabilidade de serem exibidos para os usuários.
+- Highlights: Usuários com perfil em destaque na plataforma.
+- Favorites: Anúncios favoritados pelos usuários.
+
+Para baixar o JSON com a coleção das requisições do Insomnia basta clicar no botão abaixo
+
+[![Run in Insomnia](https://insomnia.rest/images/run.svg)](./readme/endpoints.json)
 
 ## Instalação
 
@@ -28,29 +55,29 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/).
 Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/).
 
-### 🎲 Rodando o Back End (servidor)
+### 🎲 Rodando a API
 
 ```bash
 # Clone este repositório
-$ git clone git@github.com:MrRioja/OmniStack-8.git
+$ git clone git@github.com:MrRioja/pets2care.git
 
 # Acesse a pasta do projeto no terminal/cmd
-$ cd OmniStack-8
-
-# Vá para a pasta server
-$ cd backend
+$ cd pets2care
 
 # Instale as dependências
 $ npm install
 # Caso prefira usar o Yarn execute o comando abaixo
 $ yarn
 
+# Executar as migrations e criar o banco SQLite
+$ yarn typeorm migration:run
+
 # Execute a aplicação em modo de desenvolvimento
 $ npm run dev
 # Caso prefira usar o Yarn execute o comando abaixo
 $ yarn dev
 
-# O servidor inciará na porta 3333 ou na porta definida no arquivo .env na variavel APP_PORT - acesse <http://localhost:3333>
+# O servidor inciará na porta 3333 ou na porta definida no arquivo .env na variável APP_PORT - acesse <http://localhost:3333>
 ```
 
 ## Tecnologias
@@ -58,6 +85,8 @@ $ yarn dev
 <img align="left" src="https://profilinator.rishav.dev/skills-assets/nodejs-original-wordmark.svg" alt="Node.js" height="75" />
 
 <img align="left" src="https://profilinator.rishav.dev/skills-assets/express-original-wordmark.svg" alt="Express.js" height="75" />
+
+<br><br><br>
 
 ## Autor
 
