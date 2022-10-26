@@ -10,7 +10,7 @@ class SpotlightsController {
     const usersRepository = getCustomRepository(UsersRepository);
 
     const usersSpotlight = await usersRepository.find({
-      where: { isActive: true, isSpotlight: true },
+      where: { isSpotlight: true },
     });
 
     return res.json(users_view.renderMany(usersSpotlight));
